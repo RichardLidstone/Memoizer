@@ -7,7 +7,7 @@ namespace OctoBadger.Caching.Tests
     public class MemoizerTests
     {
         [TestMethod]
-        public void MyFirstMemoizer()
+        public void BasicZeroParameterMemoization()
         {
             Func<string> hook = () =>
             {
@@ -17,6 +17,20 @@ namespace OctoBadger.Caching.Tests
             Func<string> memo = Memoizer.Create(hook);
 
             Assert.AreEqual(memo(), "result");
+        }
+
+
+        [TestMethod]
+        public void BasicSingleParameterMemoization()
+        {
+            Func<string, string> hook = (input) =>
+            {
+                return "result";
+            };
+
+            Func<string, string> memo = Memoizer.Create(hook);
+
+            Assert.AreEqual(memo("blah"), "result");
         }
     }
 }
